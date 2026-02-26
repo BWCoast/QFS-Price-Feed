@@ -182,7 +182,7 @@ const TOKENS=[
   {symbol:'PLR',name:'PiLLARS',currency:'PLR',issuer:'rNSYhWLhuHvmURwWbJPBKZMSPsyG5Qek17',color:'#9B59B6',logo:'plr.png'},
   {symbol:'STX',name:'Strategy-X',currency:'STX',issuer:'rSTAYKxF2K77ZLZ8GoAwTqPGaphAqMyXV',color:'#E67E22',logo:'stx.png'},
   {symbol:'BOX',name:'BuiltOnXRP',currency:'BOX',issuer:'rhy4FUHtXrMZhbkBfeYvDv4nz6R7M4cu1t',color:'#1ABC9C',logo:'box.png'},
-  {symbol:'GRIM',name:'Grim Reaper',currency:'4752494D00000000000000000000000000000000',issuer:'rHLRdLwXiBZSD53ZQz8ogGJz25LzNCCjSz',color:'#9B30FF',logo:'grim.png'}
+  {symbol:'GRIM',name:'GRIM',currency:'4752494D00000000000000000000000000000000',issuer:'rHLRdLwXiBZSD53ZQz8ogGJz25LzNCCjSz',color:'#9B30FF',logo:'grim.png'}
 ];
 
 const XRPL_WS='wss://xrplcluster.com';
@@ -423,7 +423,11 @@ function drawChart(sym){
   if(data.length<2)return;
 
   const tok=TOKENS.find(t=>t.symbol===sym),color=tok?tok.color:'#D1B47B';
-  const mn=Math.min(...data),mx=Math.max(...data),rng=mx-mn||1,pad=4;
+  const mn0=Math.min(...data),mx0=Math.max(...data);
+  const isFlat=mx0===mn0;
+  const rng=isFlat?(mx0*0.01||1e-9):(mx0-mn0);
+  const mn=isFlat?mn0-rng/2:mn0;
+  const pad=4;
 
   const gc=getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim();
   ctx.strokeStyle=gc;ctx.lineWidth=.5;
