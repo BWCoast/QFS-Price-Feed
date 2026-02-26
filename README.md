@@ -15,12 +15,12 @@ Real-time price tracker for the 6 QFS (Quantum Financial Systems) tokens on the 
 
 ## Features
 
-- Live prices via OnTheDEX REST API + WebSocket
+- Live prices via WebSocket
 - XRP/USD conversion via CoinGecko
 - Sparkline charts with 4H / 1D / 1W / 1M timeframe controls
 - 15m / 1h / 24h trend percentages
 - Light/dark mode (persists between visits)
-- 4 animated refresh bar variants
+- 1 animated refresh bar variant
 - Scheduled Netlify function writes price snapshots to Supabase every 5 minutes
 
 ## File Structure
@@ -64,7 +64,7 @@ RLS policies are enabled:
 
 ## Data Sources
 
-- **Live prices:** [OnTheDEX API](https://api.onthedex.live)
+- **Live prices:** [WebSocket]
 - **Historical snapshots:** Supabase (written by the scheduled function)
 - **XRP/USD rate:** [CoinGecko API](https://api.coingecko.com)
 - **DEX book prices:** XRPL WebSocket (`wss://xrplcluster.com`)
