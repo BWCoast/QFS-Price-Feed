@@ -57,7 +57,7 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 .conn-dot{width:8px;height:8px;border-radius:50%;background:#666;flex-shrink:0;transition:background .3s}
 .conn-dot.live{background:var(--positive);box-shadow:0 0 6px rgba(46,204,113,.6)}
 .conn-dot.connecting{background:#F1C40F;animation:pulse-dot 1.5s infinite}
-.conn-dot.rest{background:var(--negative)}
+.conn-dot.err{background:var(--negative)}
 @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
 
 .summary-bar{background:var(--bg-summary);border-bottom:1px solid var(--border-card);padding:.5rem 1.25rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;transition:background .4s}
@@ -69,6 +69,9 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 .refresh-label{font-family:var(--font-heading);font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
 .refresh-canvas{flex:1;height:32px}
 
+.tf-bar{background:var(--bg-summary);border-bottom:1px solid var(--border-card);padding:.45rem 1.25rem;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:background .4s}
+.tf-bar-label{font-family:var(--font-heading);font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-right:.25rem}
+
 .container{max-width:1400px;margin:0 auto;padding:1.25rem}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
 
@@ -77,21 +80,27 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 .token-card.flash-green{border-color:var(--positive)!important;box-shadow:0 0 12px rgba(46,204,113,.2)!important}
 .token-card.flash-red{border-color:var(--negative)!important;box-shadow:0 0 12px rgba(231,76,60,.2)!important}
 
-.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
 .card-identity{display:flex;align-items:center;gap:.75rem}
-.token-logo{width:52px;height:52px;border-radius:50%;object-fit:cover;background:#000;flex-shrink:0;border:2px solid var(--border-card)}
+.token-logo{width:52px;height:52px;border-radius:50%;object-fit:contain;background:transparent;flex-shrink:0}
 .token-symbol{font-family:var(--font-heading);font-size:1.35rem;font-weight:700;color:var(--text-primary);letter-spacing:.05em}
 .token-name{font-family:var(--font-body);font-size:.7rem;color:var(--text-muted);font-style:italic}
 
 .price-area{text-align:right}
 .price-main{font-family:var(--font-heading);font-size:2rem;font-weight:700;color:var(--text-primary);line-height:1.1}
-.price-secondary{font-family:var(--font-body);font-size:.95rem;color:var(--text-muted);margin-top:.15rem}
+.price-secondary{font-family:var(--font-body);font-size:.85rem;color:var(--text-muted);margin-top:.15rem}
 
-.chart-section{margin-top:.75rem}
-.chart-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem}
-.chart-title{font-family:var(--font-heading);font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em}
-.tf-buttons{display:flex;gap:.25rem}
-.tf-btn{font-family:var(--font-heading);font-size:.6rem;font-weight:600;padding:.2rem .5rem;border-radius:4px;border:1px solid var(--border-card);background:transparent;color:var(--text-muted);cursor:pointer;transition:all .2s}
+/* ─── STATS ROW ─── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:.75rem 0;padding:.6rem 0;border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle)}
+.stat-box{text-align:center}
+.stat-label{font-family:var(--font-heading);font-size:.5rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:.06em;margin-bottom:.2rem}
+.stat-val{font-family:var(--font-heading);font-size:.85rem;font-weight:600;color:var(--text-secondary)}
+.stat-val.up{color:var(--positive)}.stat-val.down{color:var(--negative)}
+
+/* ─── CHART ─── */
+.chart-section{margin-top:.5rem}
+.chart-label{font-family:var(--font-heading);font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+.tf-btn{font-family:var(--font-heading);font-size:.7rem;font-weight:600;padding:.3rem .7rem;border-radius:5px;border:1px solid var(--border-card);background:transparent;color:var(--text-muted);cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.04em}
 .tf-btn:hover{border-color:var(--qfs-gold);color:var(--qfs-gold)}
 .tf-btn.active{background:rgba(209,180,123,.2);color:var(--qfs-gold);border-color:var(--qfs-gold)}
 .sparkline-wrap{position:relative;height:80px;border-radius:6px;overflow:hidden}
@@ -101,13 +110,18 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 [data-theme="light"] .chart-loading{background:rgba(255,255,255,.5)}
 .chart-empty{font-family:var(--font-body);font-size:.7rem;color:var(--text-muted);text-align:center;padding:1.5rem 0;font-style:italic}
 
+/* ─── ISSUER ─── */
+.issuer-row{display:flex;justify-content:space-between;align-items:center;margin-top:.5rem;padding-top:.4rem;border-top:1px solid var(--border-subtle)}
+.issuer-label{font-family:var(--font-heading);font-size:.5rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:.06em}
+.issuer-val{font-family:var(--font-heading);font-size:.6rem;color:var(--text-secondary);letter-spacing:.03em}
+
 .toast-container{position:fixed;bottom:1rem;right:1rem;z-index:9000;display:flex;flex-direction:column;gap:.5rem}
 .toast{background:var(--bg-toast);border:1px solid var(--border-card);border-radius:8px;padding:.6rem 1rem;font-family:var(--font-body);font-size:.7rem;color:var(--text-secondary);box-shadow:0 4px 12px rgba(0,0,0,.3);animation:toastIn .3s ease;max-width:280px}
 .toast.error{border-left:3px solid var(--negative)}.toast.info{border-left:3px solid var(--qfs-gold)}
 @keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-@media(max-width:900px){.grid{grid-template-columns:1fr 1fr;gap:1rem}.token-card{padding:1.25rem}.price-main{font-size:1.6rem}.summary-bar{gap:1rem}}
-@media(max-width:640px){.grid{grid-template-columns:1fr}.header{padding:.5rem .75rem}.header-title{font-size:1rem}.header-sub{display:none}.container{padding:.75rem}.token-card{padding:1rem 1.15rem}.price-main{font-size:1.4rem}.token-logo{width:44px;height:44px}.token-symbol{font-size:1.1rem}.sparkline-wrap{height:60px}.summary-val{font-size:1rem}.summary-bar{gap:.75rem;padding:.4rem .75rem}}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr;gap:1rem}.token-card{padding:1.25rem}.price-main{font-size:1.6rem}.summary-bar{gap:1rem}.stats-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.header{padding:.5rem .75rem}.header-title{font-size:1rem}.header-sub{display:none}.container{padding:.75rem}.token-card{padding:1rem 1.15rem}.price-main{font-size:1.4rem}.token-logo{width:44px;height:44px}.token-symbol{font-size:1.1rem}.sparkline-wrap{height:60px}.summary-val{font-size:1rem}.summary-bar{gap:.75rem;padding:.4rem .75rem}.stats-row{grid-template-columns:repeat(2,1fr)}.stat-val{font-size:.75rem}}
 </style>
 </head>
 <body>
@@ -142,14 +156,21 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 </div>
 
 <div class="refresh-bar">
-  <div class="refresh-label">Next Refresh</div>
+  <div class="refresh-label">Sine Wave</div>
   <canvas class="refresh-canvas" id="refresh-canvas"></canvas>
+</div>
+
+<div class="tf-bar">
+  <span class="tf-bar-label">Timeframe</span>
+  <button class="tf-btn" data-tf="4H" onclick="switchTimeframe('4H')">4H</button>
+  <button class="tf-btn active" data-tf="1D" onclick="switchTimeframe('1D')">1D</button>
+  <button class="tf-btn" data-tf="1W" onclick="switchTimeframe('1W')">1W</button>
+  <button class="tf-btn" data-tf="1M" onclick="switchTimeframe('1M')">1M</button>
 </div>
 
 <div class="container"><div class="grid" id="card-grid"></div></div>
 <div class="toast-container" id="toasts"></div>
 
-<!-- XRPL.js library — same version as xSTIK tracker -->
 <script src="https://unpkg.com/xrpl@3.0.0/build/xrpl-latest.js"></script>
 
 <script>
@@ -168,23 +189,24 @@ const CG_URL='https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_curren
 const SUPABASE_URL='https://wcnqphmvvjncjponpueo.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndjbnFwaG12dmpuY2pwb25wdWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMDEwNDEsImV4cCI6MjA4NzY3NzA0MX0.IATrnXhz01F76YYGoDVAJx3w9sjQyobCZvC7YZ3knPM';
 const TABLE='qfs_prices';
-const TICK=300000; // 5 min — matches collector
+const TICK=300000;
 
-// Timeframes in minutes for Supabase history queries
-const TIMEFRAMES={'1H':60,'4H':240,'1D':1440,'1W':10080};
+const TIMEFRAMES={'4H':240,'1D':1440,'1W':10080,'1M':43200};
 
 /* ═══ STATE ═══ */
 let client=null, xrpUsd=0, activeCur='usd', activeTf='1D';
-const state=Object.fromEntries(TOKENS.map(t=>[t.symbol,{price:null,usd:null,history:[]}]));
+const state=Object.fromEntries(TOKENS.map(t=>[t.symbol,{price:null,usd:null,history:[],allHistory:[]}]));
 let cdInt=null;
 
 /* ═══ THEME ═══ */
 (function(){const m=document.cookie.match(/qfs_theme=(\w+)/);if(m&&m[1]==='light')document.documentElement.setAttribute('data-theme','light')})();
 function toggleTheme(){const h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.cookie='qfs_theme='+n+';path=/;max-age=31536000;SameSite=Lax';TOKENS.forEach(t=>drawChart(t.symbol));drawRefreshBar()}
 
-/* ═══ UTILS ═══ */
-function fmt(n){if(n==null)return'\u2014';if(n>=1)return n.toFixed(4);if(n>=.01)return n.toFixed(5);if(n>=.0001)return n.toFixed(6);return n.toFixed(8)}
-function fmtUsd(n){if(n==null)return'\u2014';if(n>=.01)return'$'+n.toFixed(4);if(n>=.0001)return'$'+n.toFixed(6);return'$'+n.toFixed(8)}
+/* ═══ FORMAT HELPERS ═══ */
+function fmtXrp(n){if(n==null)return'\u2014';if(n>=1)return n.toFixed(4);if(n>=.01)return n.toFixed(5);if(n>=.0001)return n.toFixed(6);return n.toFixed(8)}
+function fmtUsd(n){if(n==null)return'\u2014';if(n>=1)return'$'+n.toFixed(4);if(n>=.01)return'$'+n.toFixed(4);if(n>=.0001)return'$'+n.toFixed(6);return'$'+n.toFixed(8)}
+function fmtPct(p){if(p==null)return'\u2014';return(p>=0?'+':'')+p.toFixed(2)+'%'}
+function shortAddr(a){if(!a)return'\u2014';return a.slice(0,6)+'\u2026'+a.slice(-6)}
 function showToast(m,type='info'){const c=document.getElementById('toasts'),el=document.createElement('div');el.className='toast '+type;el.textContent=m;c.appendChild(el);setTimeout(()=>{el.style.opacity='0';setTimeout(()=>el.remove(),400)},4000)}
 function updateConn(s){document.getElementById('conn-dot').className='conn-dot '+s}
 
@@ -194,19 +216,14 @@ async function fetchXrpUsd(){
   document.getElementById('sum-xrp').textContent=xrpUsd?'$'+xrpUsd.toFixed(4):'$\u2014';
 }
 
-/* ═══ XRPL LIVE PRICE (same method as xSTIK tracker) ═══ */
+/* ═══ XRPL LIVE PRICE ═══ */
 async function fetchLivePrice(token){
   if(!client||!client.isConnected())return null;
   const tryBook=async(gets,pays)=>{try{const r=await client.request({command:'book_offers',taker_gets:gets,taker_pays:pays,limit:5});return r.result?.offers??[]}catch{return[]}};
-
-  // Side A: selling XRP for token
   const A=await tryBook({currency:'XRP'},{currency:token.currency,issuer:token.issuer});
   if(A.length){const b=A[0];const xD=typeof b.TakerGets==='string'?+b.TakerGets:(+b.TakerGets?.value??0)*1e6;const tA=typeof b.TakerPays==='string'?+b.TakerPays:+b.TakerPays?.value??0;if(tA>0)return(xD/1e6)/tA}
-
-  // Side B: selling token for XRP
   const B=await tryBook({currency:token.currency,issuer:token.issuer},{currency:'XRP'});
   if(B.length){const b=B[0];const tA=typeof b.TakerGets==='string'?+b.TakerGets:+b.TakerGets?.value??0;const xD=typeof b.TakerPays==='string'?+b.TakerPays:(+b.TakerPays?.value??0)*1e6;if(tA>0)return(xD/1e6)/tA}
-
   return null;
 }
 
@@ -217,15 +234,103 @@ async function fetchHistory(symbol,minutes){
   try{const r=await fetch(url,{headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${SUPABASE_KEY}`}});if(!r.ok)return[];return await r.json()}catch{return[]}
 }
 
+/* Load history for active timeframe + always load 24H for the change/high/low stats */
 async function loadAllHistory(){
   const mins=TIMEFRAMES[activeTf];
   for(const t of TOKENS){
     const rows=await fetchHistory(t.symbol,mins);
     state[t.symbol].history=rows;
+    // Always have 24H data for stats (1H change uses last 60 min of this)
+    if(activeTf!=='1D'){
+      const rows24=await fetchHistory(t.symbol,1440);
+      state[t.symbol].allHistory=rows24;
+    }else{
+      state[t.symbol].allHistory=rows;
+    }
   }
 }
 
-/* ═══ RENDER CARDS ═══ */
+/* ═══ GET CHART VALUES — THE FIX ═══ */
+/* 
+ * KEY FIX vs xSTIK bug: Never return 0 for missing USD values.
+ * If price_usd is null in the DB, compute it on the fly: price_xrp * xrpUsd.
+ * This way BOTH XRP and USD charts work on ALL timeframes.
+ * Think of it like a backup calculator — if the stored answer is missing,
+ * we calculate it ourselves from the parts we DO have.
+ */
+function getChartValues(symbol){
+  const s=state[symbol];
+  const rows=[...s.history];
+  // Append live tick
+  if(s.price!=null) rows.push({fetched_at:new Date().toISOString(),price_xrp:s.price,price_usd:s.usd});
+
+  return rows.map(r=>{
+    const xrp=parseFloat(r.price_xrp);
+    if(activeCur==='xrp') return xrp>0?xrp:null;
+    // USD: use stored value if valid, otherwise compute from XRP
+    const usd=r.price_usd!=null?parseFloat(r.price_usd):null;
+    if(usd!=null&&usd>0) return usd;
+    // Fallback: compute USD from XRP price * current XRP/USD rate
+    if(xrp>0&&xrpUsd>0) return xrp*xrpUsd;
+    return null;
+  }).filter(v=>v!=null&&v>0);
+}
+
+/* Get values from the 24H history for stats */
+function get24hValues(symbol){
+  const s=state[symbol];
+  const rows=s.allHistory||[];
+  return rows.map(r=>{
+    const xrp=parseFloat(r.price_xrp);
+    if(activeCur==='xrp') return xrp>0?xrp:null;
+    const usd=r.price_usd!=null?parseFloat(r.price_usd):null;
+    if(usd!=null&&usd>0) return usd;
+    if(xrp>0&&xrpUsd>0) return xrp*xrpUsd;
+    return null;
+  }).filter(v=>v!=null&&v>0);
+}
+
+/* ═══ COMPUTE STATS ═══ */
+function computeStats(symbol){
+  const s=state[symbol];
+  const all24=s.allHistory||[];
+  const now=s.price;
+  const nowUsd=s.usd;
+  const currentVal=activeCur==='xrp'?now:nowUsd;
+
+  // Find price from ~1 hour ago and ~24 hours ago
+  let pct1h=null, pct24h=null, high24=null, low24=null;
+  
+  if(all24.length>0&&currentVal!=null&&currentVal>0){
+    const vals24=get24hValues(symbol);
+    if(vals24.length>0){
+      // 24H change: first value in 24h history vs current
+      const oldest24=vals24[0];
+      if(oldest24>0) pct24h=((currentVal-oldest24)/oldest24)*100;
+      // High/Low
+      high24=Math.max(...vals24);
+      low24=Math.min(...vals24);
+    }
+
+    // 1H change: find values from ~60 min ago
+    const oneHrAgo=Date.now()-3600000;
+    const recent1h=all24.filter(r=>new Date(r.fetched_at).getTime()>=oneHrAgo);
+    if(recent1h.length>0){
+      const firstXrp=parseFloat(recent1h[0].price_xrp);
+      let firstVal;
+      if(activeCur==='xrp') firstVal=firstXrp;
+      else{
+        const fu=recent1h[0].price_usd!=null?parseFloat(recent1h[0].price_usd):null;
+        firstVal=(fu!=null&&fu>0)?fu:(firstXrp>0&&xrpUsd>0?firstXrp*xrpUsd:null);
+      }
+      if(firstVal!=null&&firstVal>0) pct1h=((currentVal-firstVal)/firstVal)*100;
+    }
+  }
+
+  return {pct1h,pct24h,high24,low24};
+}
+
+/* ═══ BUILD CARDS ═══ */
 function renderCards(){
   const grid=document.getElementById('card-grid');grid.innerHTML='';
   TOKENS.forEach(t=>{
@@ -241,50 +346,67 @@ function renderCards(){
           <div class="price-secondary" id="ps-${t.symbol}"></div>
         </div>
       </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-label">1H %</div><div class="stat-val" id="s1h-${t.symbol}">\u2014</div></div>
+        <div class="stat-box"><div class="stat-label">24H %</div><div class="stat-val" id="s24h-${t.symbol}">\u2014</div></div>
+        <div class="stat-box"><div class="stat-label">24H High</div><div class="stat-val" id="shi-${t.symbol}">\u2014</div></div>
+        <div class="stat-box"><div class="stat-label">24H Low</div><div class="stat-val" id="slo-${t.symbol}">\u2014</div></div>
+      </div>
       <div class="chart-section">
-        <div class="chart-controls">
-          <span class="chart-title">Price Chart</span>
-          <div class="tf-buttons" id="tf-group-${t.symbol}">
-            ${Object.keys(TIMEFRAMES).map(k=>`<button class="tf-btn${k===activeTf?' active':''}" data-tf="${k}" onclick="switchTimeframe('${k}')">${k}</button>`).join('')}
-          </div>
-        </div>
+        <div class="chart-label">Price Chart</div>
         <div class="sparkline-wrap"><canvas id="sp-${t.symbol}"></canvas><div class="chart-loading" id="cl-${t.symbol}">Loading&hellip;</div></div>
         <div class="chart-empty" id="ce-${t.symbol}" style="display:none">Collecting data &mdash; chart will appear soon</div>
+      </div>
+      <div class="issuer-row">
+        <span class="issuer-label">Issuer</span>
+        <span class="issuer-val" title="${t.issuer}">${shortAddr(t.issuer)}</span>
       </div>`;
     grid.appendChild(card);
   });
 }
 
-/* ═══ UPDATE CARD PRICES ═══ */
+/* ═══ UPDATE CARD ═══ */
 function renderCard(token){
   const s=state[token.symbol];
   const pEl=document.getElementById('p-'+token.symbol);
   const psEl=document.getElementById('ps-'+token.symbol);
   if(!pEl)return;
 
+  // Price display
   if(s.price!=null){
     if(activeCur==='xrp'){
-      pEl.textContent=fmt(s.price)+' XRP';
+      pEl.textContent=fmtXrp(s.price)+' XRP';
       psEl.textContent=s.usd!=null?fmtUsd(s.usd):'';
     }else{
       pEl.textContent=s.usd!=null?fmtUsd(s.usd):'\u2014';
-      psEl.textContent=fmt(s.price)+' XRP';
+      psEl.textContent=fmtXrp(s.price)+' XRP';
     }
   }else{
-    pEl.textContent='\u2014';
-    psEl.textContent='';
+    pEl.textContent='\u2014';psEl.textContent='';
   }
 
-  // Chart from Supabase history
-  const hist=s.history;
+  // Stats
+  const st=computeStats(token.symbol);
+  const s1h=document.getElementById('s1h-'+token.symbol);
+  const s24h=document.getElementById('s24h-'+token.symbol);
+  const shi=document.getElementById('shi-'+token.symbol);
+  const slo=document.getElementById('slo-'+token.symbol);
+  
+  if(s1h){s1h.textContent=fmtPct(st.pct1h);s1h.className='stat-val'+(st.pct1h!=null?(st.pct1h>=0?' up':' down'):'')}
+  if(s24h){s24h.textContent=fmtPct(st.pct24h);s24h.className='stat-val'+(st.pct24h!=null?(st.pct24h>=0?' up':' down'):'')}
+  if(shi) shi.textContent=st.high24!=null?(activeCur==='xrp'?fmtXrp(st.high24):fmtUsd(st.high24)):'\u2014';
+  if(slo) slo.textContent=st.low24!=null?(activeCur==='xrp'?fmtXrp(st.low24):fmtUsd(st.low24)):'\u2014';
+
+  // Chart
+  const vals=getChartValues(token.symbol);
   const ceEl=document.getElementById('ce-'+token.symbol);
-  const spEl=document.getElementById('sp-'+token.symbol);
-  if(hist.length<2){
+  const spWrap=document.getElementById('sp-'+token.symbol)?.parentElement;
+  if(vals.length<2){
     if(ceEl)ceEl.style.display='block';
-    if(spEl)spEl.parentElement.style.display='none';
+    if(spWrap)spWrap.style.display='none';
   }else{
     if(ceEl)ceEl.style.display='none';
-    if(spEl)spEl.parentElement.style.display='block';
+    if(spWrap)spWrap.style.display='block';
     drawChart(token.symbol);
   }
 }
@@ -296,8 +418,7 @@ function drawChart(sym){
   const dpr=window.devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;
   const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);const w=r.width,h=r.height;ctx.clearRect(0,0,w,h);
 
-  const hist=state[sym].history;
-  const data=hist.map(row=>activeCur==='xrp'?parseFloat(row.price_xrp):(row.price_usd?parseFloat(row.price_usd):parseFloat(row.price_xrp)*xrpUsd)).filter(v=>v>0);
+  const data=getChartValues(sym);
   if(data.length<2)return;
 
   const tok=TOKENS.find(t=>t.symbol===sym),color=tok?tok.color:'#D1B47B';
@@ -318,18 +439,14 @@ function drawChart(sym){
   ctx.beginPath();ctx.arc(w,ly,3,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
 }
 
-/* ═══ TIMEFRAME SWITCH ═══ */
+/* ═══ TIMEFRAME / CURRENCY ═══ */
 async function switchTimeframe(tfKey){
   activeTf=tfKey;
-  // Update all tf buttons on all cards
-  document.querySelectorAll('.tf-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-tf')===tfKey));
-  // Show loading on all charts
+  document.querySelectorAll('.tf-bar .tf-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-tf')===tfKey));
   TOKENS.forEach(t=>{const cl=document.getElementById('cl-'+t.symbol);if(cl)cl.classList.add('show')});
   await loadAllHistory();
   TOKENS.forEach(t=>{const cl=document.getElementById('cl-'+t.symbol);if(cl)cl.classList.remove('show');renderCard(t)});
 }
-
-/* ═══ CURRENCY SWITCH ═══ */
 function switchCurrency(cur){
   activeCur=cur;
   document.getElementById('btn-xrp').classList.toggle('active',cur==='xrp');
@@ -337,7 +454,7 @@ function switchCurrency(cur){
   TOKENS.forEach(t=>renderCard(t));
 }
 
-/* ═══ FETCH ALL LIVE PRICES ═══ */
+/* ═══ FETCH ALL LIVE ═══ */
 async function fetchAll(){
   let feeds=0;
   for(const token of TOKENS){
@@ -346,31 +463,23 @@ async function fetchAll(){
     const prev=s.price;
     s.price=price;
     s.usd=(price!=null&&xrpUsd>0)?price*xrpUsd:null;
-
     if(price!=null)feeds++;
-
-    // Flash on price change
     const card=document.getElementById('card-'+token.symbol);
     if(card&&prev!=null&&price!=null&&price!==prev){
-      card.classList.remove('flash-green','flash-red');
-      void card.offsetWidth;
+      card.classList.remove('flash-green','flash-red');void card.offsetWidth;
       card.classList.add(price>prev?'flash-green':'flash-red');
       setTimeout(()=>card.classList.remove('flash-green','flash-red'),800);
     }
     renderCard(token);
-    await new Promise(r=>setTimeout(r,300)); // small delay between requests
+    await new Promise(r=>setTimeout(r,300));
   }
   document.getElementById('sum-feeds').textContent=feeds+' / 6';
   document.getElementById('sum-time').textContent=new Date().toLocaleTimeString();
 }
 
-/* ═══ REFRESH BAR — SINE WAVE ONLY ═══ */
+/* ═══ REFRESH BAR — SINE WAVE ═══ */
 let refreshInterval=null,refreshStart=0;
-function startRefreshCycle(){
-  refreshStart=Date.now();
-  if(refreshInterval)clearInterval(refreshInterval);
-  refreshInterval=setInterval(drawRefreshBar,50);
-}
+function startRefreshCycle(){refreshStart=Date.now();if(refreshInterval)clearInterval(refreshInterval);refreshInterval=setInterval(drawRefreshBar,50)}
 function drawRefreshBar(){
   const cv=document.getElementById('refresh-canvas');if(!cv)return;
   const r=cv.getBoundingClientRect();if(r.width===0)return;
@@ -378,83 +487,41 @@ function drawRefreshBar(){
   const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);const w=r.width,h=r.height;ctx.clearRect(0,0,w,h);
   const p=Math.min((Date.now()-refreshStart)/TICK,1);
   const t=Date.now()/1000,gold='#D1B47B',green='#7AA7A0';
-
   [{c:gold+'60',f:3,a:.3,ph:0},{c:green+'60',f:4,a:.25,ph:1},{c:gold+'30',f:5,a:.2,ph:2}].forEach(wv=>{
     ctx.beginPath();ctx.strokeStyle=wv.c;ctx.lineWidth=1.5;
     for(let x=0;x<=w*p;x++){const y=h/2+Math.sin(x/w*Math.PI*2*wv.f+t*2+wv.ph)*h*wv.a;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
     ctx.stroke();
   });
   ctx.beginPath();ctx.arc(p*w,h/2,4,0,Math.PI*2);ctx.fillStyle=gold;ctx.fill();
-
-  // Countdown
   const rem=Math.max(0,Math.ceil((TICK-(Date.now()-refreshStart))/1000));
   document.getElementById('sum-countdown').textContent=rem>=60?Math.ceil(rem/60)+'m':rem+'s';
-
   if(p>=1){triggerRefresh();startRefreshCycle()}
 }
 
-/* ═══ REFRESH ═══ */
-async function triggerRefresh(){
-  await fetchXrpUsd();
-  await loadAllHistory();
-  await fetchAll();
-}
+async function triggerRefresh(){await fetchXrpUsd();await loadAllHistory();await fetchAll()}
 
 /* ═══ INIT ═══ */
 function dismissLoader(){const el=document.getElementById('loader');if(el){el.classList.add('hidden');setTimeout(()=>el.style.display='none',600)}}
 
 async function init(){
   renderCards();
-  // Hard timeout — loader gone in 8 seconds no matter what
   setTimeout(()=>dismissLoader(),8000);
-
-  // Load history + XRP/USD + XRPL connect in parallel
   await Promise.all([
     loadAllHistory(),
     fetchXrpUsd(),
     (async()=>{
-      try{
-        updateConn('connecting');
-        client=new xrpl.Client(XRPL_WS);
-        await client.connect();
-        updateConn('live');
-      }catch(e){
-        updateConn('rest');
-        showToast('XRPL connection failed — retrying...','error');
-      }
+      try{updateConn('connecting');client=new xrpl.Client(XRPL_WS);await client.connect();updateConn('live')}
+      catch(e){updateConn('err');showToast('XRPL connection failed — retrying...','error')}
     })()
   ]);
-
   dismissLoader();
-
-  // Render charts from history
   TOKENS.forEach(t=>renderCard(t));
-
-  // Fetch live prices from XRPL DEX
   await fetchAll();
-
-  // Start refresh cycle
   startRefreshCycle();
-
-  // Auto-refresh every 5 min
-  setInterval(async()=>{
-    await loadAllHistory();
-    await fetchAll();
-    await fetchXrpUsd();
-  },TICK);
-
-  // XRPL reconnect handler
-  if(client){
-    client.on('disconnected',()=>{
-      updateConn('rest');
-      setTimeout(async()=>{
-        try{await client.connect();updateConn('live')}catch(e){updateConn('rest')}
-      },5000);
-    });
-  }
+  setInterval(async()=>{await loadAllHistory();await fetchAll();await fetchXrpUsd()},TICK);
+  if(client){client.on('disconnected',()=>{updateConn('err');setTimeout(async()=>{try{await client.connect();updateConn('live')}catch{updateConn('err')}},5000)})}
 }
 
-/* ═══ EVENTS ═══ */
 document.getElementById('btn-usd').addEventListener('click',()=>switchCurrency('usd'));
 document.getElementById('btn-xrp').addEventListener('click',()=>switchCurrency('xrp'));
 document.getElementById('theme-toggle').addEventListener('click',toggleTheme);
