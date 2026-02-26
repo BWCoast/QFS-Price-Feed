@@ -17,6 +17,7 @@ const TOKENS = [
   { symbol: "PLR", currency: "PLR", issuer: "rNSYhWLhuHvmURwWbJPBKZMSPsyG5Qek17" },
   { symbol: "STX", currency: "STX", issuer: "rSTAYKxF2K77ZLZ8GoAwTqPGaphAqMyXV" },
   { symbol: "BOX", currency: "BOX", issuer: "rhy4FUHtXrMZhbkBfeYvDv4nz6R7M4cu1t" },
+  { symbol: "GRIM", currency: "4752494D00000000000000000000000000000000", issuer: "rHLRdLwXiBZSD53ZQz8ogGJz25LzNCCjSz" },
 ];
 
 const TABLE = "qfs_prices";

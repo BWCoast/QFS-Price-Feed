@@ -150,7 +150,7 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 
 <div class="summary-bar">
   <div class="summary-item"><div class="summary-label">XRP / USD</div><div class="summary-val" id="sum-xrp">$&mdash;</div></div>
-  <div class="summary-item"><div class="summary-label">Active Feeds</div><div class="summary-val" id="sum-feeds">0 / 6</div></div>
+  <div class="summary-item"><div class="summary-label">Active Feeds</div><div class="summary-val" id="sum-feeds">0 / 7</div></div>
   <div class="summary-item"><div class="summary-label">Last Update</div><div class="summary-val" id="sum-time">&mdash;</div></div>
   <div class="summary-item"><div class="summary-label">Next Refresh</div><div class="summary-val" id="sum-countdown">&mdash;</div></div>
 </div>
@@ -181,7 +181,8 @@ const TOKENS=[
   {symbol:'ARK',name:'Ark',currency:'ARK',issuer:'rf5Jzzy6oAFBJjLhokha1v8pXVgYYjee3b',color:'#2ECC71',logo:'ark.png'},
   {symbol:'PLR',name:'PiLLARS',currency:'PLR',issuer:'rNSYhWLhuHvmURwWbJPBKZMSPsyG5Qek17',color:'#9B59B6',logo:'plr.png'},
   {symbol:'STX',name:'Strategy-X',currency:'STX',issuer:'rSTAYKxF2K77ZLZ8GoAwTqPGaphAqMyXV',color:'#E67E22',logo:'stx.png'},
-  {symbol:'BOX',name:'BuiltOnXRP',currency:'BOX',issuer:'rhy4FUHtXrMZhbkBfeYvDv4nz6R7M4cu1t',color:'#1ABC9C',logo:'box.png'}
+  {symbol:'BOX',name:'BuiltOnXRP',currency:'BOX',issuer:'rhy4FUHtXrMZhbkBfeYvDv4nz6R7M4cu1t',color:'#1ABC9C',logo:'box.png'},
+  {symbol:'GRIM',name:'Grim Reaper',currency:'4752494D00000000000000000000000000000000',issuer:'rHLRdLwXiBZSD53ZQz8ogGJz25LzNCCjSz',color:'#9B30FF',logo:'grim.png'}
 ];
 
 const XRPL_WS='wss://xrplcluster.com';
@@ -473,7 +474,7 @@ async function fetchAll(){
     renderCard(token);
     await new Promise(r=>setTimeout(r,300));
   }
-  document.getElementById('sum-feeds').textContent=feeds+' / 6';
+  document.getElementById('sum-feeds').textContent=feeds+' / 7';
   document.getElementById('sum-time').textContent=new Date().toLocaleTimeString();
 }
 
