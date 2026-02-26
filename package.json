@@ -1,0 +1,10 @@
+{
+  "name": "qfs-price-feed",
+  "version": "1.0.0",
+  "description": "QFS Token Price Feed — XRPL price collector",
+  "type": "module",
+  "dependencies": {
+    "@netlify/functions": "^2.8.1",
+    "xrpl": "^3.0.0"
+  }
+}
