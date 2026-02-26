@@ -8,75 +8,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════
-   QFS BRAND GUIDE — CSS VARIABLES
-   Primary:    Gold #D1B47B
-   Dark Accent: Charcoal #4E4E4E
-   Secondary:  Soft Green #7AA7A0
-   Neutral:    Light Gray #B4B4B4
-   Light Accent: Soft White #F1F1F1
-   Gradient:   Gold → Green
-   Heading:    Josefin Sans (≈ Coco Gothic)
-   Body:       Libre Baskerville (≈ ITC New Baskerville)
-   ═══════════════════════════════════════════════ */
 :root {
-  --qfs-gold: #D1B47B;
-  --qfs-green: #7AA7A0;
-  --qfs-charcoal: #4E4E4E;
-  --qfs-neutral: #B4B4B4;
-  --qfs-light: #F1F1F1;
-  --qfs-gradient: linear-gradient(135deg, #D1B47B, #7AA7A0);
-  --font-heading: 'Josefin Sans', sans-serif;
-  --font-body: 'Libre Baskerville', 'Georgia', serif;
-
-  /* DARK THEME (default) */
-  --bg-page: #111111;
-  --bg-card: #1E1E1E;
-  --bg-card-hover: #252525;
-  --border-card: #333333;
-  --border-subtle: #2a2a2a;
-  --text-primary: var(--qfs-light);
-  --text-secondary: var(--qfs-neutral);
-  --text-muted: var(--qfs-charcoal);
-  --bg-header: rgba(17,17,17,0.95);
-  --bg-summary: #1a1a1a;
-  --bg-toast: #2a2a2a;
-  --shadow-card: 0 2px 12px rgba(0,0,0,0.5);
-  --shadow-glow: 0 0 20px rgba(209,180,123,0.1);
-  --chart-grid: rgba(255,255,255,0.06);
-  --loader-bg: #111111;
-  --toggle-bg: #333;
-  --toggle-fg: var(--qfs-gold);
-  --positive: #2ECC71;
-  --negative: #E74C3C;
+  --qfs-gold:#D1B47B;--qfs-green:#7AA7A0;--qfs-charcoal:#4E4E4E;--qfs-neutral:#B4B4B4;--qfs-light:#F1F1F1;
+  --qfs-gradient:linear-gradient(135deg,#D1B47B,#7AA7A0);
+  --font-heading:'Josefin Sans',sans-serif;--font-body:'Libre Baskerville','Georgia',serif;
+  --bg-page:#111;--bg-card:#1E1E1E;--bg-card-hover:#252525;--border-card:#333;--border-subtle:#2a2a2a;
+  --text-primary:var(--qfs-light);--text-secondary:var(--qfs-neutral);--text-muted:var(--qfs-charcoal);
+  --bg-header:rgba(17,17,17,.95);--bg-summary:#1a1a1a;--bg-toast:#2a2a2a;
+  --shadow-card:0 2px 12px rgba(0,0,0,.5);--shadow-glow:0 0 20px rgba(209,180,123,.1);
+  --chart-grid:rgba(255,255,255,.06);--loader-bg:#111;--toggle-bg:#333;--toggle-fg:var(--qfs-gold);
+  --positive:#2ECC71;--negative:#E74C3C;
 }
-
-/* LIGHT THEME */
-[data-theme="light"] {
-  --bg-page: var(--qfs-light);
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #FAFAF8;
-  --border-card: #D8D0C4;
-  --border-subtle: #E4DDD3;
-  --text-primary: #2A2A2A;
-  --text-secondary: var(--qfs-charcoal);
-  --text-muted: var(--qfs-neutral);
-  --bg-header: rgba(241,241,241,0.95);
-  --bg-summary: #E8E4DE;
-  --bg-toast: #FFFFFF;
-  --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
-  --shadow-glow: 0 0 20px rgba(209,180,123,0.15);
-  --chart-grid: rgba(0,0,0,0.06);
-  --loader-bg: var(--qfs-light);
-  --toggle-bg: #D8D0C4;
-  --toggle-fg: var(--qfs-green);
+[data-theme="light"]{
+  --bg-page:var(--qfs-light);--bg-card:#FFF;--bg-card-hover:#FAFAF8;--border-card:#D8D0C4;--border-subtle:#E4DDD3;
+  --text-primary:#2A2A2A;--text-secondary:var(--qfs-charcoal);--text-muted:var(--qfs-neutral);
+  --bg-header:rgba(241,241,241,.95);--bg-summary:#E8E4DE;--bg-toast:#FFF;
+  --shadow-card:0 2px 12px rgba(0,0,0,.08);--shadow-glow:0 0 20px rgba(209,180,123,.15);
+  --chart-grid:rgba(0,0,0,.06);--loader-bg:var(--qfs-light);--toggle-bg:#D8D0C4;--toggle-fg:var(--qfs-green);
 }
-
-/* ═══ RESET ═══ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-primary);min-height:100vh;transition:background .4s,color .4s}
 
-/* ═══ LOADER ═══ */
 #loader{position:fixed;inset:0;z-index:9999;background:var(--loader-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
 #loader.hidden{opacity:0;pointer-events:none}
 .loader-logo{width:64px;height:64px;border-radius:50%;object-fit:contain;margin-bottom:1rem}
@@ -85,12 +37,11 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader-sub{font-family:var(--font-body);color:var(--text-muted);font-size:.8rem;margin-top:.75rem;font-style:italic}
 
-/* ═══ HEADER ═══ */
 .header{position:sticky;top:0;z-index:100;background:var(--bg-header);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-card);padding:.65rem 1.25rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s}
 .header-left{display:flex;align-items:center;gap:.65rem}
 .header-logo{width:36px;height:36px;border-radius:50%;object-fit:contain}
 .header-title{font-family:var(--font-heading);font-size:1.4rem;font-weight:700;color:var(--qfs-gold);letter-spacing:.08em;text-transform:uppercase}
-.header-sub{font-family:var(--font-body);font-size:.65rem;color:var(--text-muted);letter-spacing:.04em;font-style:italic}
+.header-sub{font-family:var(--font-body);font-size:.65rem;color:var(--text-muted);font-style:italic}
 .header-right{display:flex;align-items:center;gap:.6rem}
 
 .btn-sm{font-family:var(--font-heading);font-size:.65rem;font-weight:600;padding:.3rem .65rem;border-radius:6px;border:1px solid var(--border-card);background:transparent;color:var(--text-secondary);cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.06em}
@@ -101,8 +52,7 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 .theme-toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--toggle-fg);transition:transform .3s,background .3s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 [data-theme="light"] .theme-toggle::after{transform:translateX(20px)}
 .theme-icon{position:absolute;top:50%;transform:translateY(-50%);font-size:.6rem;pointer-events:none;z-index:1}
-.theme-icon.sun{right:4px}
-.theme-icon.moon{left:5px}
+.theme-icon.sun{right:4px}.theme-icon.moon{left:5px}
 
 .conn-dot{width:8px;height:8px;border-radius:50%;background:#666;flex-shrink:0;transition:background .3s}
 .conn-dot.live{background:var(--positive);box-shadow:0 0 6px rgba(46,204,113,.6)}
@@ -110,22 +60,18 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 .conn-dot.rest{background:var(--negative)}
 @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* ═══ SUMMARY BAR ═══ */
 .summary-bar{background:var(--bg-summary);border-bottom:1px solid var(--border-card);padding:.5rem 1.25rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;transition:background .4s}
 .summary-item{text-align:center}
 .summary-label{font-family:var(--font-heading);font-size:.55rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:.08em;margin-bottom:.15rem}
 .summary-val{font-family:var(--font-heading);font-size:1.35rem;font-weight:600;color:var(--text-primary)}
 
-/* ═══ REFRESH BAR ═══ */
 .refresh-bar{background:var(--bg-summary);border-bottom:1px solid var(--border-card);padding:.25rem 1.25rem;display:flex;align-items:center;gap:.75rem;transition:background .4s}
 .refresh-label{font-family:var(--font-heading);font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
 .refresh-canvas{flex:1;height:32px}
 
-/* ═══ GRID ═══ */
 .container{max-width:1400px;margin:0 auto;padding:1.25rem}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
 
-/* ═══ TOKEN CARD ═══ */
 .token-card{background:var(--bg-card);border:1px solid var(--border-card);border-radius:12px;padding:1.5rem 1.75rem;transition:all .3s;box-shadow:var(--shadow-card);position:relative;overflow:hidden}
 .token-card:hover{background:var(--bg-card-hover);box-shadow:var(--shadow-glow)}
 .token-card.flash-green{border-color:var(--positive)!important;box-shadow:0 0 12px rgba(46,204,113,.2)!important}
@@ -141,22 +87,11 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 .price-main{font-family:var(--font-heading);font-size:2rem;font-weight:700;color:var(--text-primary);line-height:1.1}
 .price-secondary{font-family:var(--font-body);font-size:.95rem;color:var(--text-muted);margin-top:.15rem}
 
-.vol-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;padding-bottom:.65rem;border-bottom:1px solid var(--border-subtle)}
-.vol-text{font-family:var(--font-body);font-size:.7rem;color:var(--text-muted)}
-
-.trend-row{display:flex;gap:.75rem;margin-bottom:.85rem}
-.trend-item{flex:1;text-align:center}
-.trend-label{font-family:var(--font-heading);font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.1rem}
-.trend-val{font-family:var(--font-heading);font-size:1rem;font-weight:600}
-.trend-up{color:var(--positive)}
-.trend-down{color:var(--negative)}
-.trend-flat{color:var(--text-muted)}
-
-.chart-section{margin-bottom:.25rem}
+.chart-section{margin-top:.75rem}
 .chart-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem}
 .chart-title{font-family:var(--font-heading);font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em}
 .tf-buttons{display:flex;gap:.25rem}
-.tf-btn{font-family:var(--font-heading);font-size:.6rem;font-weight:600;padding:.2rem .5rem;border-radius:4px;border:1px solid var(--border-card);background:transparent;color:var(--text-muted);cursor:pointer;transition:all .2s;letter-spacing:.03em}
+.tf-btn{font-family:var(--font-heading);font-size:.6rem;font-weight:600;padding:.2rem .5rem;border-radius:4px;border:1px solid var(--border-card);background:transparent;color:var(--text-muted);cursor:pointer;transition:all .2s}
 .tf-btn:hover{border-color:var(--qfs-gold);color:var(--qfs-gold)}
 .tf-btn.active{background:rgba(209,180,123,.2);color:var(--qfs-gold);border-color:var(--qfs-gold)}
 .sparkline-wrap{position:relative;height:80px;border-radius:6px;overflow:hidden}
@@ -164,87 +99,58 @@ body{font-family:var(--font-body);background:var(--bg-page);color:var(--text-pri
 .chart-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);color:var(--qfs-gold);font-family:var(--font-heading);font-size:.7rem;opacity:0;pointer-events:none;transition:opacity .2s;border-radius:6px}
 .chart-loading.show{opacity:1}
 [data-theme="light"] .chart-loading{background:rgba(255,255,255,.5)}
+.chart-empty{font-family:var(--font-body);font-size:.7rem;color:var(--text-muted);text-align:center;padding:1.5rem 0;font-style:italic}
 
-/* ═══ TOAST ═══ */
 .toast-container{position:fixed;bottom:1rem;right:1rem;z-index:9000;display:flex;flex-direction:column;gap:.5rem}
 .toast{background:var(--bg-toast);border:1px solid var(--border-card);border-radius:8px;padding:.6rem 1rem;font-family:var(--font-body);font-size:.7rem;color:var(--text-secondary);box-shadow:0 4px 12px rgba(0,0,0,.3);animation:toastIn .3s ease;max-width:280px}
-.toast.error{border-left:3px solid var(--negative)}
-.toast.info{border-left:3px solid var(--qfs-gold)}
+.toast.error{border-left:3px solid var(--negative)}.toast.info{border-left:3px solid var(--qfs-gold)}
 @keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-/* ═══ RESPONSIVE ═══ */
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr 1fr;gap:1rem}
-  .token-card{padding:1.25rem}
-  .price-main{font-size:1.6rem}
-  .summary-bar{gap:1rem}
-}
-@media(max-width:640px){
-  .grid{grid-template-columns:1fr}
-  .header{padding:.5rem .75rem}
-  .header-title{font-size:1rem}
-  .header-sub{display:none}
-  .container{padding:.75rem}
-  .token-card{padding:1rem 1.15rem}
-  .price-main{font-size:1.4rem}
-  .token-logo{width:44px;height:44px}
-  .token-symbol{font-size:1.1rem}
-  .sparkline-wrap{height:60px}
-  .summary-val{font-size:1rem}
-  .summary-bar{gap:.75rem;padding:.4rem .75rem}
-  .refresh-bar{padding:.2rem .75rem}
-  .vol-row{flex-direction:column;gap:.2rem;align-items:flex-start}
-}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr;gap:1rem}.token-card{padding:1.25rem}.price-main{font-size:1.6rem}.summary-bar{gap:1rem}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.header{padding:.5rem .75rem}.header-title{font-size:1rem}.header-sub{display:none}.container{padding:.75rem}.token-card{padding:1rem 1.15rem}.price-main{font-size:1.4rem}.token-logo{width:44px;height:44px}.token-symbol{font-size:1.1rem}.sparkline-wrap{height:60px}.summary-val{font-size:1rem}.summary-bar{gap:.75rem;padding:.4rem .75rem}}
 </style>
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader">
   <img src="qfs.png" alt="QFS" class="loader-logo">
   <div class="loader-title">QFS Token Feed</div>
   <div class="loader-spinner"></div>
-  <div class="loader-sub">Connecting to XRPL data feeds&hellip;</div>
+  <div class="loader-sub">Connecting to XRPL&hellip;</div>
 </div>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-left">
     <img src="qfs.png" alt="QFS" class="header-logo">
-    <div>
-      <div class="header-title">QFS Token Feed</div>
-      <div class="header-sub">Quantum Financial Systems</div>
-    </div>
+    <div><div class="header-title">QFS Token Feed</div><div class="header-sub">Quantum Financial Systems</div></div>
   </div>
   <div class="header-right">
     <div class="conn-dot" id="conn-dot" title="Connection status"></div>
-    <button class="btn-sm" id="btn-usd" title="Toggle USD prices">USD</button>
+    <button class="btn-sm" id="btn-xrp" title="Show XRP prices">XRP</button>
+    <button class="btn-sm active" id="btn-usd" title="Show USD prices">USD</button>
     <div class="theme-toggle" id="theme-toggle" title="Toggle light/dark mode">
-      <span class="theme-icon moon">&#9790;</span>
-      <span class="theme-icon sun">&#9788;</span>
+      <span class="theme-icon moon">&#9790;</span><span class="theme-icon sun">&#9788;</span>
     </div>
   </div>
 </header>
 
-<!-- SUMMARY BAR -->
 <div class="summary-bar">
   <div class="summary-item"><div class="summary-label">XRP / USD</div><div class="summary-val" id="sum-xrp">$&mdash;</div></div>
   <div class="summary-item"><div class="summary-label">Active Feeds</div><div class="summary-val" id="sum-feeds">0 / 6</div></div>
   <div class="summary-item"><div class="summary-label">Last Update</div><div class="summary-val" id="sum-time">&mdash;</div></div>
-  <div class="summary-item"><div class="summary-label">Source</div><div class="summary-val" id="sum-source">REST</div></div>
+  <div class="summary-item"><div class="summary-label">Next Refresh</div><div class="summary-val" id="sum-countdown">&mdash;</div></div>
 </div>
 
-<!-- REFRESH BAR -->
 <div class="refresh-bar">
-  <div class="refresh-label" id="refresh-label">Heartbeat</div>
+  <div class="refresh-label">Next Refresh</div>
   <canvas class="refresh-canvas" id="refresh-canvas"></canvas>
 </div>
 
-<!-- MAIN -->
 <div class="container"><div class="grid" id="card-grid"></div></div>
-
-<!-- TOASTS -->
 <div class="toast-container" id="toasts"></div>
+
+<!-- XRPL.js library — same version as xSTIK tracker -->
+<script src="https://unpkg.com/xrpl@3.0.0/build/xrpl-latest.js"></script>
 
 <script>
 /* ═══ CONFIG ═══ */
@@ -256,36 +162,74 @@ const TOKENS=[
   {symbol:'STX',name:'Strategy-X',currency:'STX',issuer:'rSTAYKxF2K77ZLZ8GoAwTqPGaphAqMyXV',color:'#E67E22',logo:'stx.png'},
   {symbol:'BOX',name:'BuiltOnXRP',currency:'BOX',issuer:'rhy4FUHtXrMZhbkBfeYvDv4nz6R7M4cu1t',color:'#1ABC9C',logo:'box.png'}
 ];
-const API='https://api.onthedex.live/public/v1';
-const WS_BASE='wss://api.onthedex.live/public/v1/ticker/';
+
+const XRPL_WS='wss://xrplcluster.com';
 const CG_URL='https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd';
-const TIMEFRAMES={'4H':{interval:15,bars:16},'1D':{interval:60,bars:24},'1W':{interval:360,bars:28},'1M':{interval:1440,bars:30}};
+const SUPABASE_URL='https://wcnqphmvvjncjponpueo.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndjbnFwaG12dmpuY2pwb25wdWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMDEwNDEsImV4cCI6MjA4NzY3NzA0MX0.IATrnXhz01F76YYGoDVAJx3w9sjQyobCZvC7YZ3knPM';
+const TABLE='qfs_prices';
+const TICK=300000; // 5 min — matches collector
+
+// Timeframes in minutes for Supabase history queries
+const TIMEFRAMES={'1H':60,'4H':240,'1D':1440,'1W':10080};
 
 /* ═══ STATE ═══ */
-const S={tokens:{},xrpUsd:null,showUsd:false,wsConnected:false,wsRetries:0,ws:null,lastUpdate:null,source:'REST',activeFeeds:0,chartTf:{},refreshVariant:0};
-TOKENS.forEach(t=>{S.tokens[t.symbol]={price:null,vol24:null,trades:null,trend15:null,trend60:null,trend1440:null,charts:{}};S.chartTf[t.symbol]='1D'});
+let client=null, xrpUsd=0, activeCur='usd', activeTf='1D';
+const state=Object.fromEntries(TOKENS.map(t=>[t.symbol,{price:null,usd:null,history:[]}]));
+let cdInt=null;
 
 /* ═══ THEME ═══ */
 (function(){const m=document.cookie.match(/qfs_theme=(\w+)/);if(m&&m[1]==='light')document.documentElement.setAttribute('data-theme','light')})();
-function toggleTheme(){const h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.cookie='qfs_theme='+n+';path=/;max-age=31536000;SameSite=Lax';TOKENS.forEach(t=>drawSparkline(t.symbol));drawRefreshBar()}
+function toggleTheme(){const h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.cookie='qfs_theme='+n+';path=/;max-age=31536000;SameSite=Lax';TOKENS.forEach(t=>drawChart(t.symbol));drawRefreshBar()}
 
 /* ═══ UTILS ═══ */
-function safeFetch(url,timeout=8000){const c=new AbortController(),t=setTimeout(()=>c.abort(),timeout);return fetch(url,{signal:c.signal}).then(r=>{clearTimeout(t);if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).catch(e=>{clearTimeout(t);throw e})}
-function fmt(n){if(n==null)return'\u2014';if(n>=1)return n.toFixed(4);if(n>=.01)return n.toFixed(5);return n.toFixed(6)}
-function fmtUsd(x){if(x==null||!S.xrpUsd)return'\u2014';const u=x*S.xrpUsd;return u>=.01?'$'+u.toFixed(4):'$'+u.toFixed(6)}
-function fmtPct(p){if(p==null)return'\u2014';return(p>=0?'+':'')+p.toFixed(2)+'%'}
-function pctClass(p){if(p==null)return'trend-flat';return p>0?'trend-up':p<0?'trend-down':'trend-flat'}
+function fmt(n){if(n==null)return'\u2014';if(n>=1)return n.toFixed(4);if(n>=.01)return n.toFixed(5);if(n>=.0001)return n.toFixed(6);return n.toFixed(8)}
+function fmtUsd(n){if(n==null)return'\u2014';if(n>=.01)return'$'+n.toFixed(4);if(n>=.0001)return'$'+n.toFixed(6);return'$'+n.toFixed(8)}
 function showToast(m,type='info'){const c=document.getElementById('toasts'),el=document.createElement('div');el.className='toast '+type;el.textContent=m;c.appendChild(el);setTimeout(()=>{el.style.opacity='0';setTimeout(()=>el.remove(),400)},4000)}
-function updateTime(){S.lastUpdate=new Date();const el=document.getElementById('sum-time');if(el)el.textContent=S.lastUpdate.toLocaleTimeString()}
-function updateSummary(){document.getElementById('sum-xrp').textContent=S.xrpUsd?'$'+S.xrpUsd.toFixed(4):'$\u2014';document.getElementById('sum-feeds').textContent=S.activeFeeds+' / 6';document.getElementById('sum-source').textContent=S.source}
 function updateConn(s){document.getElementById('conn-dot').className='conn-dot '+s}
+
+/* ═══ XRP/USD ═══ */
+async function fetchXrpUsd(){
+  try{const r=await fetch(CG_URL);if(r.ok){const d=await r.json();xrpUsd=d?.ripple?.usd||0}}catch(e){}
+  document.getElementById('sum-xrp').textContent=xrpUsd?'$'+xrpUsd.toFixed(4):'$\u2014';
+}
+
+/* ═══ XRPL LIVE PRICE (same method as xSTIK tracker) ═══ */
+async function fetchLivePrice(token){
+  if(!client||!client.isConnected())return null;
+  const tryBook=async(gets,pays)=>{try{const r=await client.request({command:'book_offers',taker_gets:gets,taker_pays:pays,limit:5});return r.result?.offers??[]}catch{return[]}};
+
+  // Side A: selling XRP for token
+  const A=await tryBook({currency:'XRP'},{currency:token.currency,issuer:token.issuer});
+  if(A.length){const b=A[0];const xD=typeof b.TakerGets==='string'?+b.TakerGets:(+b.TakerGets?.value??0)*1e6;const tA=typeof b.TakerPays==='string'?+b.TakerPays:+b.TakerPays?.value??0;if(tA>0)return(xD/1e6)/tA}
+
+  // Side B: selling token for XRP
+  const B=await tryBook({currency:token.currency,issuer:token.issuer},{currency:'XRP'});
+  if(B.length){const b=B[0];const tA=typeof b.TakerGets==='string'?+b.TakerGets:+b.TakerGets?.value??0;const xD=typeof b.TakerPays==='string'?+b.TakerPays:(+b.TakerPays?.value??0)*1e6;if(tA>0)return(xD/1e6)/tA}
+
+  return null;
+}
+
+/* ═══ SUPABASE HISTORY ═══ */
+async function fetchHistory(symbol,minutes){
+  const since=new Date(Date.now()-minutes*60*1000).toISOString();
+  const url=`${SUPABASE_URL}/rest/v1/${TABLE}?select=fetched_at,price_xrp,price_usd&symbol=eq.${symbol}&fetched_at=gte.${since}&order=fetched_at.asc&limit=500`;
+  try{const r=await fetch(url,{headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${SUPABASE_KEY}`}});if(!r.ok)return[];return await r.json()}catch{return[]}
+}
+
+async function loadAllHistory(){
+  const mins=TIMEFRAMES[activeTf];
+  for(const t of TOKENS){
+    const rows=await fetchHistory(t.symbol,mins);
+    state[t.symbol].history=rows;
+  }
+}
 
 /* ═══ RENDER CARDS ═══ */
 function renderCards(){
   const grid=document.getElementById('card-grid');grid.innerHTML='';
   TOKENS.forEach(t=>{
-    const d=S.tokens[t.symbol],tf=S.chartTf[t.symbol],card=document.createElement('div');
-    card.className='token-card';card.id='card-'+t.symbol;
+    const card=document.createElement('div');card.className='token-card';card.id='card-'+t.symbol;
     card.innerHTML=`
       <div class="card-top">
         <div class="card-identity">
@@ -293,153 +237,231 @@ function renderCards(){
           <div><div class="token-symbol">${t.symbol}</div><div class="token-name">${t.name}</div></div>
         </div>
         <div class="price-area">
-          <div class="price-main" id="p-${t.symbol}">${d.price!=null?fmt(d.price)+' XRP':'\u2014'}</div>
-          <div class="price-secondary" id="pu-${t.symbol}">${S.showUsd&&d.price?fmtUsd(d.price):''}</div>
+          <div class="price-main" id="p-${t.symbol}">\u2014</div>
+          <div class="price-secondary" id="ps-${t.symbol}"></div>
         </div>
-      </div>
-      <div class="vol-row">
-        <span class="vol-text" id="v-${t.symbol}">Vol 24h: ${d.vol24!=null?d.vol24.toFixed(2)+' XRP':'\u2014'}</span>
-        <span class="vol-text" id="tr-${t.symbol}">Trades: ${d.trades!=null?d.trades:'\u2014'}</span>
-      </div>
-      <div class="trend-row">
-        <div class="trend-item"><div class="trend-label">15m</div><div class="trend-val ${pctClass(d.trend15)}" id="t15-${t.symbol}">${fmtPct(d.trend15)}</div></div>
-        <div class="trend-item"><div class="trend-label">1h</div><div class="trend-val ${pctClass(d.trend60)}" id="t60-${t.symbol}">${fmtPct(d.trend60)}</div></div>
-        <div class="trend-item"><div class="trend-label">24h</div><div class="trend-val ${pctClass(d.trend1440)}" id="t1440-${t.symbol}">${fmtPct(d.trend1440)}</div></div>
       </div>
       <div class="chart-section">
         <div class="chart-controls">
           <span class="chart-title">Price Chart</span>
           <div class="tf-buttons" id="tf-group-${t.symbol}">
-            ${['4H','1D','1W','1M'].map(k=>`<button class="tf-btn${k===tf?' active':''}" data-tf="${k}" onclick="switchTimeframe('${t.symbol}','${k}')">${k}</button>`).join('')}
+            ${Object.keys(TIMEFRAMES).map(k=>`<button class="tf-btn${k===activeTf?' active':''}" data-tf="${k}" onclick="switchTimeframe('${k}')">${k}</button>`).join('')}
           </div>
         </div>
         <div class="sparkline-wrap"><canvas id="sp-${t.symbol}"></canvas><div class="chart-loading" id="cl-${t.symbol}">Loading&hellip;</div></div>
+        <div class="chart-empty" id="ce-${t.symbol}" style="display:none">Collecting data &mdash; chart will appear soon</div>
       </div>`;
     grid.appendChild(card);
   });
 }
 
-/* ═══ UPDATE CARD ═══ */
-function updateCard(sym){
-  const d=S.tokens[sym],pEl=document.getElementById('p-'+sym),puEl=document.getElementById('pu-'+sym);
-  if(pEl){
-    const old=pEl.textContent,nw=d.price!=null?fmt(d.price)+' XRP':'\u2014';pEl.textContent=nw;
-    if(old!==nw&&old!=='\u2014'){const card=document.getElementById('card-'+sym),op=parseFloat(old);if(d.price!=null&&!isNaN(op)){const c=d.price>op?'flash-green':'flash-red';card.classList.add(c);setTimeout(()=>card.classList.remove(c),800)}}
+/* ═══ UPDATE CARD PRICES ═══ */
+function renderCard(token){
+  const s=state[token.symbol];
+  const pEl=document.getElementById('p-'+token.symbol);
+  const psEl=document.getElementById('ps-'+token.symbol);
+  if(!pEl)return;
+
+  if(s.price!=null){
+    if(activeCur==='xrp'){
+      pEl.textContent=fmt(s.price)+' XRP';
+      psEl.textContent=s.usd!=null?fmtUsd(s.usd):'';
+    }else{
+      pEl.textContent=s.usd!=null?fmtUsd(s.usd):'\u2014';
+      psEl.textContent=fmt(s.price)+' XRP';
+    }
+  }else{
+    pEl.textContent='\u2014';
+    psEl.textContent='';
   }
-  if(puEl)puEl.textContent=S.showUsd&&d.price?fmtUsd(d.price):'';
-  const vEl=document.getElementById('v-'+sym);if(vEl)vEl.textContent='Vol 24h: '+(d.vol24!=null?d.vol24.toFixed(2)+' XRP':'\u2014');
-  const trEl=document.getElementById('tr-'+sym);if(trEl)trEl.textContent='Trades: '+(d.trades!=null?d.trades:'\u2014');
-  ['15','60','1440'].forEach(k=>{const el=document.getElementById('t'+k+'-'+sym),v=d['trend'+k];if(el){el.textContent=fmtPct(v);el.className='trend-val '+pctClass(v)}});
+
+  // Chart from Supabase history
+  const hist=s.history;
+  const ceEl=document.getElementById('ce-'+token.symbol);
+  const spEl=document.getElementById('sp-'+token.symbol);
+  if(hist.length<2){
+    if(ceEl)ceEl.style.display='block';
+    if(spEl)spEl.parentElement.style.display='none';
+  }else{
+    if(ceEl)ceEl.style.display='none';
+    if(spEl)spEl.parentElement.style.display='block';
+    drawChart(token.symbol);
+  }
 }
 
-/* ═══ SPARKLINE ═══ */
-function drawSparkline(sym){
+/* ═══ CHART DRAWING ═══ */
+function drawChart(sym){
   const cv=document.getElementById('sp-'+sym);if(!cv)return;
   const r=cv.parentElement.getBoundingClientRect();if(r.width===0)return;
   const dpr=window.devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;
   const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);const w=r.width,h=r.height;ctx.clearRect(0,0,w,h);
-  const tf=S.chartTf[sym],data=S.tokens[sym].charts[tf];
-  if(!data||data.length<2){ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim();ctx.lineWidth=1;ctx.stroke();return}
+
+  const hist=state[sym].history;
+  const data=hist.map(row=>activeCur==='xrp'?parseFloat(row.price_xrp):(row.price_usd?parseFloat(row.price_usd):parseFloat(row.price_xrp)*xrpUsd)).filter(v=>v>0);
+  if(data.length<2)return;
+
   const tok=TOKENS.find(t=>t.symbol===sym),color=tok?tok.color:'#D1B47B';
   const mn=Math.min(...data),mx=Math.max(...data),rng=mx-mn||1,pad=4;
+
   const gc=getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim();
-  ctx.strokeStyle=gc;ctx.lineWidth=.5;for(let i=1;i<4;i++){const y=pad+(h-2*pad)*i/4;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+  ctx.strokeStyle=gc;ctx.lineWidth=.5;
+  for(let i=1;i<4;i++){const y=pad+(h-2*pad)*i/4;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+
   const grd=ctx.createLinearGradient(0,0,0,h);grd.addColorStop(0,color+'30');grd.addColorStop(1,color+'00');
   ctx.beginPath();data.forEach((v,i)=>{const x=i/(data.length-1)*w,y=pad+(1-(v-mn)/rng)*(h-2*pad);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});
   ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fillStyle=grd;ctx.fill();
+
   ctx.beginPath();data.forEach((v,i)=>{const x=i/(data.length-1)*w,y=pad+(1-(v-mn)/rng)*(h-2*pad);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});
   ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.stroke();
-  const ly=pad+(1-(data[data.length-1]-mn)/rng)*(h-2*pad);ctx.beginPath();ctx.arc(w,ly,3,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
+
+  const ly=pad+(1-(data[data.length-1]-mn)/rng)*(h-2*pad);
+  ctx.beginPath();ctx.arc(w,ly,3,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
 }
 
-/* ═══ TIMEFRAME ═══ */
-async function switchTimeframe(sym,tfKey){
-  S.chartTf[sym]=tfKey;
-  const g=document.getElementById('tf-group-'+sym);if(g)g.querySelectorAll('.tf-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-tf')===tfKey));
-  if(S.tokens[sym].charts[tfKey]){drawSparkline(sym);return}
-  const cl=document.getElementById('cl-'+sym);if(cl)cl.classList.add('show');
-  try{await fetchChartData(TOKENS.find(t=>t.symbol===sym),tfKey)}catch(e){}
-  if(cl)cl.classList.remove('show');drawSparkline(sym);
+/* ═══ TIMEFRAME SWITCH ═══ */
+async function switchTimeframe(tfKey){
+  activeTf=tfKey;
+  // Update all tf buttons on all cards
+  document.querySelectorAll('.tf-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-tf')===tfKey));
+  // Show loading on all charts
+  TOKENS.forEach(t=>{const cl=document.getElementById('cl-'+t.symbol);if(cl)cl.classList.add('show')});
+  await loadAllHistory();
+  TOKENS.forEach(t=>{const cl=document.getElementById('cl-'+t.symbol);if(cl)cl.classList.remove('show');renderCard(t)});
 }
 
-/* ═══ DATA ═══ */
-async function fetchXrpUsd(){try{const d=await safeFetch(CG_URL,6000);if(d&&d.ripple&&d.ripple.usd)S.xrpUsd=d.ripple.usd}catch(e){if(!S.xrpUsd)S.xrpUsd=2.40}updateSummary()}
-
-async function fetchAllTickers(){
-  const pairs=TOKENS.map(t=>t.currency+'.'+t.issuer+':XRP').join('+');
-  try{
-    const d=await safeFetch(API+'/ticker/'+pairs,10000);
-    if(d&&d.data){let f=0;d.data.forEach(item=>{const tok=TOKENS.find(t=>{const p=t.currency+'.'+t.issuer+':XRP';return item.pair===p||(item.base&&item.base.currency===t.currency&&item.base.issuer===t.issuer)});if(tok&&item.last!=null){S.tokens[tok.symbol].price=parseFloat(item.last);if(item.vol_quote_24h!=null)S.tokens[tok.symbol].vol24=parseFloat(item.vol_quote_24h);if(item.trades_24h!=null)S.tokens[tok.symbol].trades=parseInt(item.trades_24h);if(item.change_24h!=null)S.tokens[tok.symbol].trend1440=parseFloat(item.change_24h);f++;updateCard(tok.symbol)}});S.activeFeeds=f;S.source='REST';updateTime();updateSummary()}
-  }catch(e){await fetchIndividualTickers()}
+/* ═══ CURRENCY SWITCH ═══ */
+function switchCurrency(cur){
+  activeCur=cur;
+  document.getElementById('btn-xrp').classList.toggle('active',cur==='xrp');
+  document.getElementById('btn-usd').classList.toggle('active',cur==='usd');
+  TOKENS.forEach(t=>renderCard(t));
 }
 
-async function fetchIndividualTickers(){
-  let f=0;for(const t of TOKENS){try{const d=await safeFetch(API+'/ticker/'+t.currency+'.'+t.issuer+':XRP',6000);if(d&&d.data&&d.data[0]){const i=d.data[0];if(i.last!=null){S.tokens[t.symbol].price=parseFloat(i.last);if(i.vol_quote_24h!=null)S.tokens[t.symbol].vol24=parseFloat(i.vol_quote_24h);if(i.trades_24h!=null)S.tokens[t.symbol].trades=parseInt(i.trades_24h);if(i.change_24h!=null)S.tokens[t.symbol].trend1440=parseFloat(i.change_24h);f++;updateCard(t.symbol)}}}catch(e){}}
-  S.activeFeeds=f;S.source='REST';updateTime();updateSummary();
+/* ═══ FETCH ALL LIVE PRICES ═══ */
+async function fetchAll(){
+  let feeds=0;
+  for(const token of TOKENS){
+    const price=await fetchLivePrice(token);
+    const s=state[token.symbol];
+    const prev=s.price;
+    s.price=price;
+    s.usd=(price!=null&&xrpUsd>0)?price*xrpUsd:null;
+
+    if(price!=null)feeds++;
+
+    // Flash on price change
+    const card=document.getElementById('card-'+token.symbol);
+    if(card&&prev!=null&&price!=null&&price!==prev){
+      card.classList.remove('flash-green','flash-red');
+      void card.offsetWidth;
+      card.classList.add(price>prev?'flash-green':'flash-red');
+      setTimeout(()=>card.classList.remove('flash-green','flash-red'),800);
+    }
+    renderCard(token);
+    await new Promise(r=>setTimeout(r,300)); // small delay between requests
+  }
+  document.getElementById('sum-feeds').textContent=feeds+' / 6';
+  document.getElementById('sum-time').textContent=new Date().toLocaleTimeString();
 }
 
-async function fetchChartData(tok,tfKey){const tf=TIMEFRAMES[tfKey],url=API+'/ohlc?base='+tok.currency+'.'+tok.issuer+'&quote=XRP&bars='+tf.bars+'&interval='+tf.interval;const d=await safeFetch(url,8000);if(d&&d.data&&d.data.ohlc){const p=d.data.ohlc.map(b=>parseFloat(b.c)).filter(v=>!isNaN(v));if(p.length>0)S.tokens[tok.symbol].charts[tfKey]=p}}
-
-async function fetchTrends(){
-  const ivs=[{key:'trend15',interval:15,bars:2},{key:'trend60',interval:60,bars:2}];
-  for(const t of TOKENS){for(const iv of ivs){try{const url=API+'/ohlc?base='+t.currency+'.'+t.issuer+'&quote=XRP&bars='+iv.bars+'&interval='+iv.interval;const d=await safeFetch(url,6000);if(d&&d.data&&d.data.ohlc&&d.data.ohlc.length>=2){const a=d.data.ohlc,prev=parseFloat(a[0].o),curr=parseFloat(a[a.length-1].c);if(prev>0)S.tokens[t.symbol][iv.key]=((curr-prev)/prev)*100}}catch(e){}}updateCard(t.symbol)}
+/* ═══ REFRESH BAR — SINE WAVE ONLY ═══ */
+let refreshInterval=null,refreshStart=0;
+function startRefreshCycle(){
+  refreshStart=Date.now();
+  if(refreshInterval)clearInterval(refreshInterval);
+  refreshInterval=setInterval(drawRefreshBar,50);
 }
-
-async function fetchAllCharts(){for(const t of TOKENS){const tf=S.chartTf[t.symbol];if(!S.tokens[t.symbol].charts[tf]){try{await fetchChartData(t,tf);drawSparkline(t.symbol)}catch(e){}}}}
-
-/* ═══ WEBSOCKET ═══ */
-function connectWs(){
-  if(S.ws&&(S.ws.readyState===0||S.ws.readyState===1))return;updateConn('connecting');
-  const pairs=TOKENS.map(t=>t.currency+'.'+t.issuer+':XRP').join('+');
-  try{S.ws=new WebSocket(WS_BASE+pairs)}catch(e){scheduleWsRetry();return}
-  S.ws.onopen=()=>{S.wsConnected=true;S.wsRetries=0;S.source='WebSocket';updateConn('live');updateSummary()};
-  S.ws.onmessage=(evt)=>{try{const d=JSON.parse(evt.data);if(d&&d.data){(Array.isArray(d.data)?d.data:[d.data]).forEach(item=>{const tok=TOKENS.find(t=>{const p=t.currency+'.'+t.issuer+':XRP';return item.pair===p||(item.base&&item.base.currency===t.currency&&item.base.issuer===t.issuer)});if(tok&&item.last!=null){S.tokens[tok.symbol].price=parseFloat(item.last);if(item.vol_quote_24h!=null)S.tokens[tok.symbol].vol24=parseFloat(item.vol_quote_24h);if(item.trades_24h!=null)S.tokens[tok.symbol].trades=parseInt(item.trades_24h);if(item.change_24h!=null)S.tokens[tok.symbol].trend1440=parseFloat(item.change_24h);updateCard(tok.symbol)}});updateTime();updateSummary()}}catch(e){}};
-  S.ws.onclose=()=>{S.wsConnected=false;S.source='REST';updateConn('rest');updateSummary();scheduleWsRetry()};
-  S.ws.onerror=()=>{};
-}
-function scheduleWsRetry(){const d=Math.min(3000*Math.pow(1.5,S.wsRetries),30000);S.wsRetries++;setTimeout(()=>connectWs(),d)}
-
-/* ═══ REFRESH BARS ═══ */
-const REFRESH_NAMES=['Heartbeat','Sine Wave','Rotary Dial','Progress'];
-let refreshInterval=null,refreshStart=0;const REFRESH_CYCLE=30000;
-function startRefreshCycle(){refreshStart=Date.now();if(refreshInterval)clearInterval(refreshInterval);refreshInterval=setInterval(drawRefreshBar,50);document.getElementById('refresh-label').textContent=REFRESH_NAMES[S.refreshVariant]}
 function drawRefreshBar(){
-  const cv=document.getElementById('refresh-canvas');if(!cv)return;const r=cv.getBoundingClientRect();if(r.width===0)return;
-  const dpr=window.devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);const w=r.width,h=r.height;ctx.clearRect(0,0,w,h);
-  const p=Math.min((Date.now()-refreshStart)/REFRESH_CYCLE,1);
-  const isDark=document.documentElement.getAttribute('data-theme')!=='light';
-  const gold='#D1B47B',green='#7AA7A0',dim=isDark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)';
-  switch(S.refreshVariant){case 0:drawHB(ctx,w,h,p,gold,dim);break;case 1:drawSW(ctx,w,h,p,gold,green);break;case 2:drawRD(ctx,w,h,p,gold,dim);break;case 3:drawPB(ctx,w,h,p,gold,green,dim);break}
-  if(p>=1){S.refreshVariant=(S.refreshVariant+1)%4;triggerRefresh();startRefreshCycle()}
+  const cv=document.getElementById('refresh-canvas');if(!cv)return;
+  const r=cv.getBoundingClientRect();if(r.width===0)return;
+  const dpr=window.devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;
+  const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);const w=r.width,h=r.height;ctx.clearRect(0,0,w,h);
+  const p=Math.min((Date.now()-refreshStart)/TICK,1);
+  const t=Date.now()/1000,gold='#D1B47B',green='#7AA7A0';
+
+  [{c:gold+'60',f:3,a:.3,ph:0},{c:green+'60',f:4,a:.25,ph:1},{c:gold+'30',f:5,a:.2,ph:2}].forEach(wv=>{
+    ctx.beginPath();ctx.strokeStyle=wv.c;ctx.lineWidth=1.5;
+    for(let x=0;x<=w*p;x++){const y=h/2+Math.sin(x/w*Math.PI*2*wv.f+t*2+wv.ph)*h*wv.a;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
+    ctx.stroke();
+  });
+  ctx.beginPath();ctx.arc(p*w,h/2,4,0,Math.PI*2);ctx.fillStyle=gold;ctx.fill();
+
+  // Countdown
+  const rem=Math.max(0,Math.ceil((TICK-(Date.now()-refreshStart))/1000));
+  document.getElementById('sum-countdown').textContent=rem>=60?Math.ceil(rem/60)+'m':rem+'s';
+
+  if(p>=1){triggerRefresh();startRefreshCycle()}
 }
-function drawHB(ctx,w,h,p,gold,dim){ctx.strokeStyle=dim;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();const sx=p*w;const g=ctx.createLinearGradient(sx-60,0,sx,0);g.addColorStop(0,gold+'00');g.addColorStop(1,gold+'40');ctx.fillStyle=g;ctx.fillRect(Math.max(0,sx-60),0,60,h);ctx.beginPath();ctx.strokeStyle=gold;ctx.lineWidth=2;const m=h/2;for(let x=0;x<sx;x++){const q=(x/w*8)%1;let y=m;if(q>.35&&q<.4)y=m-h*.35;else if(q>.4&&q<.45)y=m+h*.2;else if(q>.45&&q<.5)y=m-h*.15;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}ctx.stroke()}
-function drawSW(ctx,w,h,p,gold,green){const t=Date.now()/1000;[{c:gold+'60',f:3,a:.3,ph:0},{c:green+'60',f:4,a:.25,ph:1},{c:gold+'30',f:5,a:.2,ph:2}].forEach(wv=>{ctx.beginPath();ctx.strokeStyle=wv.c;ctx.lineWidth=1.5;for(let x=0;x<=w*p;x++){const y=h/2+Math.sin(x/w*Math.PI*2*wv.f+t*2+wv.ph)*h*wv.a;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}ctx.stroke()});ctx.beginPath();ctx.arc(p*w,h/2,4,0,Math.PI*2);ctx.fillStyle=gold;ctx.fill()}
-function drawRD(ctx,w,h,p,gold,dim){const cx=w/2,cy=h/2,r=Math.min(w,h)*.4;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=dim;ctx.lineWidth=3;ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+p*Math.PI*2);ctx.strokeStyle=gold;ctx.lineWidth=3;ctx.stroke();const t=Date.now()/400;ctx.save();ctx.translate(cx,cy);ctx.rotate(t);ctx.beginPath();ctx.moveTo(0,-r*.55);ctx.lineTo(r*.25,r*.25);ctx.lineTo(-r*.25,r*.25);ctx.closePath();ctx.fillStyle=gold+'60';ctx.fill();ctx.restore()}
-function drawPB(ctx,w,h,p,gold,green,dim){const bh=6,y=(h-bh)/2;ctx.beginPath();ctx.roundRect(0,y,w,bh,3);ctx.fillStyle=dim;ctx.fill();if(p>0){const g=ctx.createLinearGradient(0,0,w*p,0);g.addColorStop(0,gold);g.addColorStop(1,green);ctx.beginPath();ctx.roundRect(0,y,w*p,bh,3);ctx.fillStyle=g;ctx.fill()}}
+
+/* ═══ REFRESH ═══ */
+async function triggerRefresh(){
+  await fetchXrpUsd();
+  await loadAllHistory();
+  await fetchAll();
+}
 
 /* ═══ INIT ═══ */
-async function triggerRefresh(){fetchXrpUsd();fetchAllTickers();fetchTrends();fetchAllCharts()}
-function dismissLoader(){const el=document.getElementById('loader');if(el){el.classList.add('hidden');setTimeout(()=>el.style.display='none',600)}setTimeout(()=>TOKENS.forEach(t=>drawSparkline(t.symbol)),100)}
-function toggleUsd(){S.showUsd=!S.showUsd;document.getElementById('btn-usd').classList.toggle('active',S.showUsd);TOKENS.forEach(t=>updateCard(t.symbol))}
+function dismissLoader(){const el=document.getElementById('loader');if(el){el.classList.add('hidden');setTimeout(()=>el.style.display='none',600)}}
 
 async function init(){
   renderCards();
-  setTimeout(()=>dismissLoader(),6000);
-  await fetchXrpUsd();
-  await fetchAllTickers();
+  // Hard timeout — loader gone in 8 seconds no matter what
+  setTimeout(()=>dismissLoader(),8000);
+
+  // Load history + XRP/USD + XRPL connect in parallel
+  await Promise.all([
+    loadAllHistory(),
+    fetchXrpUsd(),
+    (async()=>{
+      try{
+        updateConn('connecting');
+        client=new xrpl.Client(XRPL_WS);
+        await client.connect();
+        updateConn('live');
+      }catch(e){
+        updateConn('rest');
+        showToast('XRPL connection failed — retrying...','error');
+      }
+    })()
+  ]);
+
   dismissLoader();
-  connectWs();
-  fetchTrends();
-  fetchAllCharts();
+
+  // Render charts from history
+  TOKENS.forEach(t=>renderCard(t));
+
+  // Fetch live prices from XRPL DEX
+  await fetchAll();
+
+  // Start refresh cycle
   startRefreshCycle();
-  setInterval(()=>{fetchAllTickers();fetchXrpUsd()},30000);
-  setInterval(()=>fetchTrends(),60000);
+
+  // Auto-refresh every 5 min
+  setInterval(async()=>{
+    await loadAllHistory();
+    await fetchAll();
+    await fetchXrpUsd();
+  },TICK);
+
+  // XRPL reconnect handler
+  if(client){
+    client.on('disconnected',()=>{
+      updateConn('rest');
+      setTimeout(async()=>{
+        try{await client.connect();updateConn('live')}catch(e){updateConn('rest')}
+      },5000);
+    });
+  }
 }
 
-document.getElementById('btn-usd').addEventListener('click',toggleUsd);
+/* ═══ EVENTS ═══ */
+document.getElementById('btn-usd').addEventListener('click',()=>switchCurrency('usd'));
+document.getElementById('btn-xrp').addEventListener('click',()=>switchCurrency('xrp'));
 document.getElementById('theme-toggle').addEventListener('click',toggleTheme);
-let rT;window.addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>TOKENS.forEach(t=>drawSparkline(t.symbol)),200)});
+let rT;window.addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>TOKENS.forEach(t=>drawChart(t.symbol)),200)});
 window.switchTimeframe=switchTimeframe;
+window.addEventListener('beforeunload',()=>{if(client?.isConnected())client.disconnect().catch(()=>{})});
+
 init();
 </script>
 </body>
