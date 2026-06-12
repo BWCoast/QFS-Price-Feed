@@ -8,9 +8,10 @@ const COINGECKO_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd";
 const XRPL_WS = "wss://xrplcluster.com";
 
-// QFS Tokens — 6 XRPL tokens
-// All use standard 3-char currency codes (no hex encoding needed)
+// QFS ecosystem tokens. symbol = the ticker the income tracker uses (must match for alignment).
+// currency may be a 3-char code or 40-char hex. issuers/codes verified on-chain.
 const TOKENS = [
+  // core 7
   { symbol: "RPR", currency: "RPR", issuer: "r3qWgpz2ry3BhcRJ8JE6rxM8esrfhuKp4R" },
   { symbol: "ASC", currency: "ASC", issuer: "r3qWgpz2ry3BhcRJ8JE6rxM8esrfhuKp4R" },
   { symbol: "ARK", currency: "ARK", issuer: "rf5Jzzy6oAFBJjLhokha1v8pXVgYYjee3b" },
@@ -18,6 +19,23 @@ const TOKENS = [
   { symbol: "STX", currency: "STX", issuer: "rSTAYKxF2K77ZLZ8GoAwTqPGaphAqMyXV" },
   { symbol: "BOX", currency: "BOX", issuer: "rhy4FUHtXrMZhbkBfeYvDv4nz6R7M4cu1t" },
   { symbol: "GRIM", currency: "4752494D00000000000000000000000000000000", issuer: "rHLRdLwXiBZSD53ZQz8ogGJz25LzNCCjSz" },
+  // rain / marshal tokens
+  { symbol: "xSTIK", currency: "785354494B000000000000000000000000000000", issuer: "rJNV9i4Q6zvRhpE2zjxgkvff3eGHQohZht" },
+  { symbol: "Schmeckles", currency: "5363686D65636B6C657300000000000000000000", issuer: "rPxw83ZP6thv7KmG5DpAW4cDW55DZRZ9wu" },
+  { symbol: "SHROOMIES", currency: "5348524F4F4D4945530000000000000000000000", issuer: "r4M4TzSypz2gRdS86hTM7oFcSs6yRmEPKZ" },
+  { symbol: "Xoge", currency: "586F676500000000000000000000000000000000", issuer: "rJMtvf5B3GbuFMrqybh5wYVXEH4QE8VyU1" },
+  { symbol: "XQK", currency: "XQK", issuer: "rHKrPGdpaqNRqRvmsiqQhD6azqc4npWoLC" },
+  { symbol: "TRSRY", currency: "5452535259000000000000000000000000000000", issuer: "rLBnhMjV6ifEHYeV4gaS6jPKerZhQddFxW" },
+  { symbol: "CORE", currency: "434F524500000000000000000000000000000000", issuer: "rcoreNywaoz2ZCQ8Lg2EbSLnGuRBmun6D" },
+  { symbol: "SOLO", currency: "534F4C4F00000000000000000000000000000000", issuer: "rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz" },
+  // wrapped layer-1s
+  { symbol: "BTC", currency: "BTC", issuer: "rchGBxcD1A1C2tdxF6papQYZ8kjRKMYcL" },
+  { symbol: "ETH", currency: "ETH", issuer: "rcA8X3TVMST1n3CJeAdGk1RdRCHii7N2h" },
+  { symbol: "LTC", currency: "LTC", issuer: "rcRzGWq6Ng3jeYhqnmM4zcWcUh69hrQ8V" },
+  // bullion
+  { symbol: "AAU", currency: "AAU", issuer: "rGho1zZBxtiiyQgMfReAju9Sc2MMtvtAAU" },
+  { symbol: "AAG", currency: "AAG", issuer: "rGrvEW7rmaLb7zoVTeLXHmjU8vp8P5CAAG" },
+  { symbol: "ACu", currency: "ACu", issuer: "rPFkJ1SH4a9M1HevXNkyc32WMQkMywDACu" },
 ];
 
 const TABLE = "qfs_prices";
@@ -34,8 +52,27 @@ async function fetchXrpUsd() {
   }
 }
 
-// ─── FETCH TOKEN PRICE FROM XRPL DEX ─────────
+// ─── FETCH TOKEN PRICE (AMM pool first, DEX order book fallback) ─────────
+// AMM pool price is steadier than top-of-book for thinly-traded tokens.
 async function fetchTokenPrice(client, token) {
+  // AMM: price in XRP = xrpReserve / tokenReserve
+  try {
+    const r = await client.request({
+      command: "amm_info",
+      asset: { currency: "XRP" },
+      asset2: { currency: token.currency, issuer: token.issuer },
+    });
+    const amm = r.result?.amm;
+    if (amm) {
+      const a1 = amm.amount, a2 = amm.amount2;
+      const xrpAmt = typeof a1 === "string" ? +a1 / 1e6 : +a2 / 1e6;
+      const tokAmt = typeof a1 === "string" ? +a2?.value : +a1?.value;
+      if (xrpAmt > 0 && tokAmt > 0) return xrpAmt / tokAmt;
+    }
+  } catch {
+    /* no AMM pool — fall back to DEX book */
+  }
+
   const tryBook = async (gets, pays) => {
     try {
       const r = await client.request({
