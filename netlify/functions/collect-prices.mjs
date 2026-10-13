@@ -3,7 +3,9 @@ import * as xrpl from "xrpl";
 
 // ─── CONFIG ───────────────────────────────────
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
+// The collector WRITES, so it needs the SERVICE key (server-side only, set in Netlify's environment, never in the repo or the browser).
+// The public anon key can only read: the table no longer accepts anonymous inserts (anyone holding the public key could otherwise write fake prices).
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
 const COINGECKO_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd";
 const XRPL_WS = "wss://xrplcluster.com";
@@ -129,12 +131,16 @@ async function fetchTokenPrice(client, token) {
 
 // ─── WRITE TO SUPABASE ────────────────────────
 async function insertRows(rows) {
+  if (!SUPABASE_URL || !SUPABASE_KEY) {      // fail closed: never fall back to the public key
+    throw new Error("SUPABASE_URL or SUPABASE_SERVICE_KEY is not set: nothing was written");
+  }
   const r = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`,
+      // the legacy service_role key is a JWT and goes in both headers; the newer "sb_secret_..." key is not a JWT and goes in apikey only
+      ...(SUPABASE_KEY.startsWith("sb_") ? {} : { Authorization: `Bearer ${SUPABASE_KEY}` }),
       Prefer: "return=minimal",
     },
     body: JSON.stringify(rows),
