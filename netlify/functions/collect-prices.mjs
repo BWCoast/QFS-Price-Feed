@@ -152,8 +152,8 @@ async function insertRows(rows) {
 }
 
 // ─── MAIN HANDLER ─────────────────────────────
-// Runs every 5 minutes via Netlify scheduled function
-export const handler = schedule("*/5 * * * *", async () => {
+// Runs every 15 minutes via Netlify scheduled function
+export const handler = schedule("*/15 * * * *", async () => {
   console.log(`[qfs-prices] Starting run at ${new Date().toISOString()}`);
 
   // 1. Get XRP/USD rate
