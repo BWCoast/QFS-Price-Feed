@@ -21,7 +21,7 @@ Real-time price tracker for the 6 QFS (Quantum Financial Systems) tokens on the 
 - 15m / 1h / 24h trend percentages
 - Light/dark mode (persists between visits)
 - 4 animated refresh bar variants
-- Scheduled Netlify function writes price snapshots to Supabase every 5 minutes
+- Scheduled Netlify function writes price snapshots to Supabase every 15 minutes
 
 ## File Structure
 
@@ -44,7 +44,7 @@ Real-time price tracker for the 6 QFS (Quantum Financial Systems) tokens on the 
 | `SUPABASE_URL`     | `https://wcnqphmvvjncjponpueo.supabase.co`    |
 | `SUPABASE_ANON_KEY`| *(provided separately — do not commit to repo)*|
 
-3. Deploy. The scheduled function runs automatically every 5 minutes.
+3. Deploy. The scheduled function runs automatically every 15 minutes.
 
 ## Supabase Table
 
